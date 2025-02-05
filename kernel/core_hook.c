@@ -847,11 +847,13 @@ static void ksu_try_umount(const char *mnt, bool check_mnt, int flags)
 		return;
 	}
 
+if (IS_ENABLED(CONFIG_KSU_SUSFS_ENABLE_LOG)) {
 #ifdef CONFIG_KSU_SUSFS_TRY_UMOUNT
 	if (susfs_is_log_enabled) {
 		pr_info("susfs: umounting '%s' for uid: %d\n", mnt, uid);
 	}
 #endif
+}
 
 	err = ksu_umount_mnt(&path, flags);
 	if (err) {
